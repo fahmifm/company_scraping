@@ -6,23 +6,13 @@ This program extract company data from **Vietnamese Stock Market** page and serv
 
 For extracting data from web page this program use **http** request to capture the raw element data from web page. Filter html element that contains company data and create list of company. Then, iterate over list of company to extract more detailed company profile from company page using URL given from first page. To speed up the second process is send to **Celery Worker**.
 
-```mermaid
-graph LR
-A[Scrape First Page] --list company--> B[Iterate List Company]
-B--data-->C(Scrape Second Page)
-C--result-->B
-B--company data-->D[Save to File]
-```
+![Scraping](./chart/scraping.png)
 
 ## Web Service
 
 The Web Service using **Flask** micro framework which is light and can handle http request by default. Company data from **Scraping** program is loaded into **MySQL** database. **MySQL** is quick to setup and have good performance. The database contains 2 table for storing company profile and financial summary. This program also use **ORM SQLAlchemy** to handle migration and mapping. 
-```mermaid
-graph LR
-A[MySQL] --- B(SQLAlchemy)
-B---C[Flask]
 
-```
+![Web Service](./chart/web_service.png)
 
 # API Endpoint
 
